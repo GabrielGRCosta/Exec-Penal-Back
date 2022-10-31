@@ -6,7 +6,7 @@ usar ele no modo ADM e não usar o console do VsCode)
 Caso não tenha o virtualenv instalado, instalar com
 $ pip install virtualenv
 
-Em seguida, criar o ambiente virtual para instalar as dependências do python para o projeto
+Em seguida, dentro da pasta backPenal, criar o ambiente virtual para instalar as dependências do python para o projeto
 
     -Linux
 
