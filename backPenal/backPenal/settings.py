@@ -87,27 +87,26 @@ WSGI_APPLICATION = 'backPenal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'exec_penal_DB',
-#         'USER': 'root',
-#         'PASSWORD': 'myuser', # CHANGE TO YOUR DB PASSWORD
-#         'HOST': 'localhost', # CHANGE TO YOUR DB IP
-#         'PORT': '3306',
-#     }
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'exec_penal_DB',
-        'USER': 'root',
-        'PASSWORD': 'myuser',
-        'HOST': '127.0.0.1', 
-        'PORT': '3306',
-    }
+     'default': {
+         'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'exec_penal',
+         'USER': 'root',
+         'HOST': 'localhost', # CHANGE TO YOUR DB IP
+         'PORT': '3306',
+     }
 }
+
+#DATABASES = {
+#   'default': {
+#      'ENGINE': 'django.db.backends.mysql',
+#       'NAME': 'exec_penal_DB',
+#       'USER': 'root',
+#       'PASSWORD': 'myuser',
+#       'HOST': '127.0.0.1', 
+#       'PORT': '3306',
+#   }
+#}
 
 
 # Password validation

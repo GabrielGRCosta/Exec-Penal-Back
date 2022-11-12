@@ -29,6 +29,7 @@ class Usuario(models.Model):
     nome = models.CharField(max_length=100, null=False, blank=False)
     sobrenome = models.CharField(max_length=100, null=False, blank=False)
     cpf = models.CharField(max_length=14, null=False, blank=False)
+    escolaridade = models.CharField(max_length=45, null=True, blank=False)
 
     #identificação de usuario
     tipo_usuario = models.ForeignKey(
@@ -46,4 +47,33 @@ class Usuario(models.Model):
         # Gerando hash
         return hashlib.sha512((self.nome + self.user.email).encode('utf-8')).hexdigest()
 
+
+class Apenados(models.Model):
+    def __str__(self):
+        return self.nome
+        
+    # OBS: O email e senha do usuário fica na tabela auth_user
+    # Chave estrangeira da tabela auth_user padrão do django related_name='usuario'
+    Apenados = models.OneToOneField(
+        User, on_delete=models.CASCADE, default='', null=False, blank=False)
+
+    idApenado =  models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
+    TempoPena = models.PositiveIntegerField(null=False)
+    TotalHorasServico = models.PositiveIntegerField(null=False)
+    TotalHorasCompletada = models.PositiveIntegerField(null=False)
+    IsEmpregado = models.BooleanField(null=False)
+    condicaoFisica = models.CharField(max_length=45)
+
+class Instituicoes(models.Model):
+    def __str__(self):
+        return self.nome
+        
+    # OBS: O email e senha do usuário fica na tabela auth_user
+    # Chave estrangeira da tabela auth_user padrão do django related_name='usuario'
+
+    id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
+    nome = models.CharField(max_length=45)
+    endereco = models.CharField(max_length=100)
+    latitude = models.CharField(max_length=10)
+    longitude = models.CharField(max_length=10)
 

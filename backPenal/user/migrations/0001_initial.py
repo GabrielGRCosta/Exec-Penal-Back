@@ -39,8 +39,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Apenados',
             fields=[
-                ('idUsuario', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('idApenado', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='user.tipousuario')),
+                ('idUsuario', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='user.tipousuario')),
+                ('idApenado',models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('TempoPena', models.PositiveIntegerField(null=False)),
                 ('TotalHorasServico',models.PositiveIntegerField(null=False)) ,
                 ('TotalHorasCompletada',models.PositiveIntegerField(null=False)),

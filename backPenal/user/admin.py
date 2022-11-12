@@ -5,4 +5,6 @@ from user.models import *
 
 admin.site.register(TipoUsuario)
 admin.site.register(Usuario)
+admin.site.register(Apenados)
+admin.site.register(Instituicoes)
 
