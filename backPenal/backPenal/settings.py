@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_swagger',
     'corsheaders',
     'rest_framework.authtoken',
     'user'
@@ -88,14 +89,22 @@ WSGI_APPLICATION = 'backPenal.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'exec_penal',
-         'USER': 'root',
-         'HOST': 'localhost', # CHANGE TO YOUR DB IP
-         'PORT': '3306',
-     }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+
+# DATABASES = {
+#      'default': {
+#          'ENGINE': 'django.db.backends.mysql',
+#          'NAME': 'exec_penal',
+#          'USER': 'root',
+#          'HOST': 'localhost', # CHANGE TO YOUR DB IP
+#          'PORT': '3306',
+#      }
+# }
 
 #DATABASES = {
 #   'default': {

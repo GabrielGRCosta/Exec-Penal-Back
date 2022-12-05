@@ -5,6 +5,10 @@ from user.models import *
 
 admin.site.register(TipoUsuario)
 admin.site.register(Usuario)
-admin.site.register(Apenados)
-admin.site.register(Instituicoes)
+admin.site.register(Address)
+admin.site.register(Attendence)
+admin.site.register(PhoneUser)
+admin.site.register(PhoneInstitution)
+admin.site.register(Voluntary)
+admin.site.register(Institution)
 

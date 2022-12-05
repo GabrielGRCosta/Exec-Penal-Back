@@ -28,17 +28,41 @@ class TipoUsuarioList(generics.ListAPIView):
 
 
 class UsersList(generics.ListAPIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAdminUser]
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class UsuariosList(generics.ListAPIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAdminUser]
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAdminUser]
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
+class AddressList(generics.ListAPIView):
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer
+class InstitutionList(generics.ListAPIView):
+    queryset = Institution.objects.all()
+    serializer_class = InstitutionSerializer
+
+class PhoneInstitutionList(generics.ListAPIView):
+    queryset = PhoneInstitution.objects.all()
+    serializer_class = PhoneInstitutionSerializer
+    
+class PhoneUserList(generics.ListAPIView):
+    queryset = PhoneUser.objects.all()
+    serializer_class = PhoneUserSerializer
+class VoluntaryList(generics.ListAPIView):
+    queryset = Voluntary.objects.all()
+    serializer_class = VoluntarySerializer
+
+class AttendenceList(generics.ListAPIView):
+    queryset = Attendence.objects.all()
+    serializer_class = AttendenceSerializer
+class AccountableList(generics.ListAPIView):
+    queryset = Accountable.objects.all()
+    serializer_class = AccountableSerializer
 
 
 @api_view(['POST'])

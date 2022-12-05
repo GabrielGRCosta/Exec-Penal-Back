@@ -37,26 +37,102 @@ class Migration(migrations.Migration):
             ],  
         ),
         migrations.CreateModel(
-            name='Apenados',
-            fields=[
-                ('idUsuario', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='user.tipousuario')),
-                ('idApenado',models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('TempoPena', models.PositiveIntegerField(null=False)),
-                ('TotalHorasServico',models.PositiveIntegerField(null=False)) ,
-                ('TotalHorasCompletada',models.PositiveIntegerField(null=False)),
-                ('IsEmpregado', models.BooleanField(null=False)),
-                ('condicaoFisica', models.CharField(max_length=45)),
-            ],  
-        ),
-        migrations.CreateModel(
-            name='Instituicoes',
+            name='Address',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome', models.CharField(max_length=45)),
-                ('endereco', models.CharField(max_length=100)),
-                ('latitude', models.CharField(max_length=10)),
-                ('longitude', models.CharField(max_length=10)),
-    
-            ],  
+                ('street', models.CharField(default='', max_length=100, verbose_name='Rua')),
+                ('number', models.IntegerField(default=0, verbose_name='Numero')),
+                ('district', models.CharField(default='', max_length=50, verbose_name='Bairro')),
+                ('city', models.CharField(default='', max_length=50, verbose_name='Cidade')),
+                ('zip', models.CharField(default='', max_length=20, verbose_name='CEP')),
+                ('state', models.CharField(default='', max_length=50, verbose_name='Estado')),
+                ('lat', models.CharField(default='', max_length=20, verbose_name='Latitude')),
+                ('long', models.CharField(default='', max_length=20, verbose_name='Longitude')),
+            ],
+            options={
+                'verbose_name_plural': 'Addresses',
+                'unique_together': {('lat', 'long')},
+            },
+        ),
+        migrations.CreateModel(
+            name='Institution',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(default='', max_length=100, verbose_name='Nome')),
+                ('email', models.CharField(default='', max_length=100, verbose_name='Email')),
+                ('address', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='user.address', verbose_name='Endereco')),
+            ],
+            options={
+                'unique_together': {('name', 'address'), ('email', 'address'), ('name', 'email')},
+            },
+        ),
+        migrations.CreateModel(
+            name='Voluntary',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('time_penalty', models.IntegerField(default=0)),
+                ('completed_hours', models.IntegerField(default=0)),
+                ('comments', models.TextField(blank=True, max_length=200)),
+                ('institution', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='user.institution')),
+                ('user', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'verbose_name_plural': 'Voluntaries',
+                'unique_together': {('user', 'institution')},
+            },
+        ),
+        migrations.CreateModel(
+            name='PhoneUser',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('number', models.CharField(max_length=15, unique=True, verbose_name='Numero')),
+                ('is_active', models.BooleanField(default=True, verbose_name='Ativo?')),
+                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'verbose_name_plural': 'Users Phones',
+            },
+        ),
+        migrations.CreateModel(
+            name='PhoneInstitution',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('number', models.CharField(max_length=15, unique=True, verbose_name='Numero')),
+                ('is_active', models.BooleanField(default=True, verbose_name='Ativo?')),
+                ('institution', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='user.institution')),
+            ],
+            options={
+                'verbose_name_plural': 'Institutions Phones',
+            },
+        ),
+        migrations.CreateModel(
+            name='Attendence',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('input_time', models.DateTimeField(auto_now_add=True)),
+                ('input_photo', models.ImageField(blank=True, null=True, upload_to='')),
+                ('output_time', models.DateTimeField(auto_now_add=True)),
+                ('output_photo', models.ImageField(blank=True, null=True, upload_to='')),
+                ('is_checked', models.BooleanField()),
+                ('latitude', models.CharField(max_length=15, null=True)),
+                ('longitude', models.CharField(max_length=15, null=True)),
+                ('commments', models.TextField(blank=True, max_length=200)),
+                ('institution', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='user.institution')),
+                ('voluntary', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='user.voluntary')),
+            ],
+            options={
+                'unique_together': {('voluntary', 'input_time', 'output_time')},
+            },
+        ),
+        migrations.CreateModel(
+            name='Accountable',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('institution', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='user.institution')),
+                ('user', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'unique_together': {('user', 'institution')},
+            },
         ),
     ]
