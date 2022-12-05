@@ -3,10 +3,18 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from user import views
 from rest_framework.authtoken import views as auth_views
 
-from rest_framework_swagger.views import get_swagger_view
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
 
 
-schema_view = get_swagger_view(title='Exec API')
+schema_view = get_schema_view(
+    openapi.Info(
+        title='Exec API',
+        default_version='1.0.0',
+        description='API documentation of App'
+    ),
+    public=True
+)
 
 urlpatterns = [
     ################################ Usuario ################################
@@ -16,6 +24,8 @@ urlpatterns = [
     path('usuarios/', views.UsuariosList.as_view(), name='list-usuarios'),
     # retorna as informações de um usuário para a aba user
     path('usuario/', views.usuario, name='usuario'),
+
+    path('api-token-auth/', auth_views.obtain_auth_token),
 
     ################################ Inscrição ################################
     # registra um usuário novo
@@ -40,7 +50,7 @@ urlpatterns = [
 
     path('voluntaries/', views.VoluntaryList.as_view(), name='list-voluntaries'),
 
-    path('swagger/', schema_view, name='swagger-schema')
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger-schema')
     
 ]
 
