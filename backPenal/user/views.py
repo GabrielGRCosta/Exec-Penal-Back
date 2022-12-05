@@ -28,15 +28,15 @@ class TipoUsuarioList(generics.ListAPIView):
 
 
 class UsersList(generics.ListAPIView):
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAdminUser]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class UsuariosList(generics.ListAPIView):
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAdminUser]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAdminUser]
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 class AddressList(generics.ListAPIView):
